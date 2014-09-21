@@ -30,7 +30,9 @@ rosbuild_genmsg()
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-include_directories('/usr/local/include/')
+find_package(OpenCV REQUIRED)
+
+include_directories('/usr/local/include/' ${OpenCV_INCLUDE_DIRS})
 link_directories('/usr/local/lib/')
 
 set(ARPOSESINGLE       ar_single)
@@ -42,6 +44,6 @@ set(ARPOSEMULTI_SRC   src/ar_multi.cpp src/object.cpp)
 set(ARPOSEMULTI_LIBS  GLU GL glut ARgsub AR ARMulti ARvideo)
 
 rosbuild_add_executable(${ARPOSESINGLE}  ${ARPOSESINGLE_SRC})
-target_link_libraries(${ARPOSESINGLE}  ${ARPOSESINGLE_LIBS})
+target_link_libraries(${ARPOSESINGLE}  ${ARPOSESINGLE_LIBS} ${OpenCV_LIBRARIES})
 rosbuild_add_executable(${ARPOSEMULTI}  ${ARPOSEMULTI_SRC})
-target_link_libraries(${ARPOSEMULTI}  ${ARPOSEMULTI_LIBS})
+target_link_libraries(${ARPOSEMULTI}  ${ARPOSEMULTI_LIBS} ${OpenCV_LIBRARIES})
